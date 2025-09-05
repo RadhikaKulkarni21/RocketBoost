@@ -47,7 +47,12 @@ public class Movement : MonoBehaviour
 
     private void ApplyRotation(float rotationPerFrame)
     {
+        //this is to avoid the space to become upside down hence no being able to thrust
+        rb.freezeRotation = true;
+        //we rotate it ourself
         transform.Rotate(Vector3.forward * rotationPerFrame * Time.fixedDeltaTime);
+        //giving back the rotation reins to unity, once we stop pressing the keys
+        rb.freezeRotation = false;
     }
 
     private void ProcessThrust()
@@ -56,6 +61,7 @@ public class Movement : MonoBehaviour
         {
             //to fly up
             rb.AddRelativeForce(Vector3.up * thrustStrength * Time.fixedDeltaTime);
+            //Debug.Log("this works");
         }
     }
 }
