@@ -10,10 +10,13 @@ public class Movement : MonoBehaviour
     [SerializeField] float rotationStrength = 10.0f;
 
     Rigidbody rb;
+    AudioSource audioSource;
+
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -61,7 +64,14 @@ public class Movement : MonoBehaviour
         {
             //to fly up
             rb.AddRelativeForce(Vector3.up * thrustStrength * Time.fixedDeltaTime);
-            //Debug.Log("this works");
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            audioSource.Stop();
         }
     }
 }
