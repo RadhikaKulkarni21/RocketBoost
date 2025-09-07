@@ -982,7 +982,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 198780201130788243, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
       propertyPath: thrustStrength
-      value: 5000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 1934331781528595653, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
       propertyPath: m_Name

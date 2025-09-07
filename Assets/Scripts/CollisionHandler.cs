@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField] float levelLoadDelay = 2f;
+
     void OnCollisionEnter(Collision collision)
     {
         switch (collision.gameObject.tag)
@@ -12,23 +14,45 @@ public class CollisionHandler : MonoBehaviour
                 break;
 
             case "Finish":
-                Debug.Log("You've reached the end");
-                break;
-
-            case "Fuel":
-                Debug.Log("Get the juice");
+                StartSuccessSequence();
                 break;
 
             default:
-                //Debug.Log("Mayday");
-                ReloadLevel();
+                StartCrashSequence();
                 break;
         }
-        
-        void ReloadLevel()
+    }
+
+    void ReloadLevel()
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
+    }
+
+    void LoadNextLevel()
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        int nextScene = currentScene + 1;
+        //if nextScene == maxScene Available then go back to 0 scene
+        if (nextScene == SceneManager.sceneCountInBuildSettings)
         {
-            int currentScene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentScene);
+            nextScene = 0;
         }
+
+        SceneManager.LoadScene(nextScene);
+    }
+
+    //adding delay to move to start level and disabling movement while the resetting the level
+    void StartCrashSequence()
+    {
+        GetComponent<Movement>().enabled = false;
+        Invoke("ReloadLevel", levelLoadDelay);
+    }
+
+    //adding delay to move to next level and disabling movement while the transition
+    void StartSuccessSequence()
+    {
+        GetComponent<Movement>().enabled = false;
+        Invoke("LoadNextLevel", levelLoadDelay);
     }
 }
