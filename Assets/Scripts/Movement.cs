@@ -8,7 +8,10 @@ public class Movement : MonoBehaviour
     [SerializeField] InputAction rotation;
     [SerializeField] float thrustStrength = 100f;
     [SerializeField] float rotationStrength = 10.0f;
-    [SerializeField] AudioClip mainEngineThrust;
+    [SerializeField] AudioClip mainEngineSFX;
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem rightThrustParticles;
+    [SerializeField] ParticleSystem leftThrustParticles;
 
     Rigidbody rb;
     AudioSource audioSource;
@@ -36,43 +39,89 @@ public class Movement : MonoBehaviour
     {
         //to fly sideways
         float rotationInput = rotation.ReadValue<float>();
-        //Debug.Log("Rotation value: " + rotationInput);
 
         if(rotationInput < 0)
         {
-            ApplyRotation(rotationStrength);
+            RotateRight();
         }
 
-        else if(rotationInput > 0){
-            //transform.Rotate(Vector3.back);
-            ApplyRotation(-rotationStrength);
+        else if(rotationInput > 0)
+        {
+            RotateLeft();
+        }
+        else
+        {
+            StopRotation();
         }
     }
-
     private void ApplyRotation(float rotationPerFrame)
     {
         //this is to avoid the space to become upside down hence no being able to thrust
         rb.freezeRotation = true;
+
         //we rotate it ourself
         transform.Rotate(Vector3.forward * rotationPerFrame * Time.fixedDeltaTime);
+
         //giving back the rotation reins to unity, once we stop pressing the keys
         rb.freezeRotation = false;
     }
 
-    private void ProcessThrust()
+    private void RotateRight()
+    {
+        ApplyRotation(rotationStrength);
+        if (!rightThrustParticles.isPlaying)
+        {
+            leftThrustParticles.Stop();
+            rightThrustParticles.Play();
+        }
+    }
+
+    private void RotateLeft()
+    {
+        //transform.Rotate(Vector3.back);
+        ApplyRotation(-rotationStrength);
+        if (!leftThrustParticles.isPlaying)
+        {
+            rightThrustParticles.Stop();
+            leftThrustParticles.Play();
+        }
+    }
+
+    private void StopRotation()
+    {
+        rightThrustParticles.Stop();
+        leftThrustParticles.Stop();
+    }
+
+    void ProcessThrust()
     {
         if (thrust.IsPressed())
         {
-            //to fly up
-            rb.AddRelativeForce(Vector3.up * thrustStrength * Time.fixedDeltaTime);
-            if (!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(mainEngineThrust);
-            }
+            StartThrusting();
         }
         else
         {
-            audioSource.Stop();
+            StopThrusting();
         }
+    }
+
+    void StartThrusting()
+    {
+        //to fly up
+        rb.AddRelativeForce(Vector3.up * thrustStrength * Time.fixedDeltaTime);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(mainEngineSFX);
+        }
+        if (!mainEngineParticles.isPlaying)
+        {
+            mainEngineParticles.Play();
+        }
+    }
+
+    void StopThrusting()
+    {
+        audioSource.Stop();
+        mainEngineParticles.Stop();
     }
 }
