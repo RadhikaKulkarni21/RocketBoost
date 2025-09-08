@@ -1,5 +1,5 @@
-using UnityEngine;
-using UnityEngine.Audio;
+using UnityEngine;  
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
@@ -13,21 +13,25 @@ public class CollisionHandler : MonoBehaviour
     AudioSource audioSource;
 
     bool isControllable = true;
+    bool isCollidable = true;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
+    void Update()
+    {
+        RespondToDebugKeys();
+    }
 
     void OnCollisionEnter(Collision collision)
     {
-        //if its not controllable then return nothing in the methond and get out of OnCollision enter
-        if (!isControllable) { return; }
+        //if its not controllable then return nothing in the methond and get out of OnCollisionEnter
+        if (!isControllable || !isCollidable) { return; }
 
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("Bump okay");
                 break;
 
             case "Finish":
@@ -78,5 +82,18 @@ public class CollisionHandler : MonoBehaviour
         successParticles.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", levelLoadDelay);
+    }
+
+    //To be removed before Prod
+    void RespondToDebugKeys()
+    {
+        if (Keyboard.current.lKey.isPressed)
+        {
+            LoadNextLevel();
+        }
+        else if (Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            isCollidable = !isCollidable;
+        }
     }
 }
