@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float levelLoadDelay = 2f;
-    [SerializeField] AudioClip success;
-    [SerializeField] AudioClip crash;
+    [SerializeField] AudioClip successSFX;
+    [SerializeField] AudioClip crashSFX;
+    [SerializeField] ParticleSystem crashParticles;
+    [SerializeField] ParticleSystem successParticles;
 
     AudioSource audioSource;
 
@@ -48,7 +50,7 @@ public class CollisionHandler : MonoBehaviour
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         int nextScene = currentScene + 1;
-        //if nextScene == maxScene Available then go back to 0 scene
+        //if nextScene == maxScene available then go back to 0th scene
         if (nextScene == SceneManager.sceneCountInBuildSettings)
         {
             nextScene = 0;
@@ -62,7 +64,8 @@ public class CollisionHandler : MonoBehaviour
     {
         isControllable = false;
         audioSource.Stop();
-        audioSource.PlayOneShot(crash);
+        audioSource.PlayOneShot(crashSFX);
+        crashParticles.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", levelLoadDelay);
     }
@@ -71,7 +74,8 @@ public class CollisionHandler : MonoBehaviour
     void StartSuccessSequence()
     {
         audioSource.Stop();
-        audioSource.PlayOneShot(success);
+        audioSource.PlayOneShot(successSFX);
+        successParticles.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", levelLoadDelay);
     }
