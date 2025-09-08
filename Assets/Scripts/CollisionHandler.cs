@@ -1,9 +1,19 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] float levelLoadDelay = 2f;
+    [SerializeField] AudioClip success;
+    [SerializeField] AudioClip crash;
+
+    AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -45,6 +55,7 @@ public class CollisionHandler : MonoBehaviour
     //adding delay to move to start level and disabling movement while the resetting the level
     void StartCrashSequence()
     {
+        audioSource.PlayOneShot(crash);
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", levelLoadDelay);
     }
@@ -52,6 +63,7 @@ public class CollisionHandler : MonoBehaviour
     //adding delay to move to next level and disabling movement while the transition
     void StartSuccessSequence()
     {
+        audioSource.PlayOneShot(success);
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", levelLoadDelay);
     }

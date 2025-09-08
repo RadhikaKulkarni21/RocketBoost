@@ -866,13 +866,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 198780201130788243, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
-      propertyPath: thrustStrength
-      value: 2500
-      objectReference: {fileID: 0}
     - target: {fileID: 1934331781528595653, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
       propertyPath: m_Name
       value: PlayerRocket
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809468079905872708, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809468079905872708, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7445375783205722635, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
       propertyPath: m_LocalPosition.x

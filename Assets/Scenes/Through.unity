@@ -345,6 +345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e9c1fe5c7d6ce4c8f66e269d16fae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLoadDelay: 2
+  success: {fileID: 0}
+  crash: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,6 +1063,14 @@ PrefabInstance:
     - target: {fileID: 2730600800926943657, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809468079905872708, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809468079905872708, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5884177250689667508, guid: 228f6ec0a3ed9d342b60659f5cc1a1e1, type: 3}
       propertyPath: m_Drag
