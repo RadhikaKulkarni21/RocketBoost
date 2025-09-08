@@ -123,9 +123,9 @@ MonoBehaviour:
       m_Action: Rotation
       m_Flags: 8
     m_Flags: 0
-  thrustStrength: 2500
+  thrustStrength: 3500
   rotationStrength: 10
-  mainEngine: {fileID: 8300000, guid: bda97ac102f53bb48a9e66d06bb35fa6, type: 3}
+  mainEngineThrust: {fileID: 8300000, guid: bda97ac102f53bb48a9e66d06bb35fa6, type: 3}
 --- !u!54 &5884177250689667508
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,8 +184,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bda97ac102f53bb48a9e66d06bb35fa6, type: 3}
-  m_Resource: {fileID: 8300000, guid: bda97ac102f53bb48a9e66d06bb35fa6, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.228
   m_Pitch: 1
