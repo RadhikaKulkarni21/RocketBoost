@@ -2,6 +2,8 @@ A 3D side scorller game where rocket flies from one end to another, consisting o
 
 <img width="1227" height="737" alt="image" src="https://github.com/user-attachments/assets/c5d60ad0-ea30-48c9-9e38-0c4710403803" />
 
+[Gameplay](https://youtu.be/dfOhI3QN50c)
+
 Concepts include:
 1) Scene management
 2) cinemachine camera
